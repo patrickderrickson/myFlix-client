@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import  MovieCard  from "../movie-card/MovieCard";
 import  MovieView  from "../movie-view/MovieView";
-class MainView extends Component {
+class MainView extends React.Component {
     state = {  
         movies: [
             {

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 // Import statement to indicate that you need to bundle `./index.scss`
 import './index.scss';
-import MainView from './main-view/MainView';
+import MainView from './components/main-view/MainView';
 
 // Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
