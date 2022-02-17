@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import  LoginView  from "../login-view/LoginView";
+import  Registration  from "../registration-view/RegistrationView";
 import  MovieCard  from "../movie-card/MovieCard";
 import  MovieView  from "../movie-view/MovieView";
 export class MainView extends React.Component {
