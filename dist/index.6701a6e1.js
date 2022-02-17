@@ -22890,8 +22890,6 @@ $parcel$ReactRefreshHelpers$1411.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "MainView", ()=>MainView
-);
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
@@ -22908,12 +22906,15 @@ var _movieViewDefault = parcelHelpers.interopDefault(_movieView);
 class MainView extends _reactDefault.default.Component {
     constructor(){
         super();
-        this.state = {
-            movies: [],
-            selectedMovie: null,
-            user: null
-        };
     }
+    state = {
+        movies: [],
+        selectedMovie: null,
+        user: null,
+        login: true,
+        token: false,
+        register: false
+    };
     componentDidMount() {
         _axiosDefault.default.get('https://frozen-sierra-28921.herokuapp.com/movies').then((response)=>{
             this.setState({
@@ -22930,24 +22931,59 @@ class MainView extends _reactDefault.default.Component {
     }
     onLoggedIn(user) {
         this.setState({
-            user
+            user,
+            token: true,
+            register: false,
+            login: false
+        });
+    }
+    OnRegistration(user) {
+        _axiosDefault.default.post('https://frozen-sierra-28921.herokuapp.com/users').then((response)=>{
+        // console.log(response)
+        }).catch((error)=>{
+            console.log(error);
+        });
+    }
+    setLogin() {
+        this.setState({
+            login: true,
+            register: false
+        });
+    }
+    setRegister() {
+        this.setState({
+            register: true,
+            login: false
         });
     }
     render() {
-        const { movies , selectedMovie  } = this.state;
-        if (movies.length === 0) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
-            className: "main-view",
+        const { movies , selectedMovie , register , user , login , token  } = this.state;
+        if (register && !login && !token) return(/*#__PURE__*/ _jsxRuntime.jsx(_registrationView.RegistrationView, {
+            setLogin: ()=>this.setLogin()
+            ,
+            OnRegistration: this.OnRegistration,
             __source: {
                 fileName: "src/components/main-view/MainView.jsx",
-                lineNumber: 41
+                lineNumber: 69
             },
             __self: this
         }));
-        return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
+        else if (!register && !token && login) return(/*#__PURE__*/ _jsxRuntime.jsx(_loginViewDefault.default, {
+            onLoggedIn: (user1)=>this.onLoggedIn(user1)
+            ,
+            setRegister: ()=>this.setRegister()
+            ,
+            __source: {
+                fileName: "src/components/main-view/MainView.jsx",
+                lineNumber: 72
+            },
+            __self: this
+        }));
+        else if (token && !register && !login) return(/*#__PURE__*/ _jsxRuntime.jsx("div", {
             className: "main-view",
             __source: {
                 fileName: "src/components/main-view/MainView.jsx",
-                lineNumber: 44
+                lineNumber: 75
             },
             __self: this,
             children: selectedMovie ? /*#__PURE__*/ _jsxRuntime.jsx(_movieViewDefault.default, {
@@ -22957,7 +22993,7 @@ class MainView extends _reactDefault.default.Component {
                 },
                 __source: {
                     fileName: "src/components/main-view/MainView.jsx",
-                    lineNumber: 46
+                    lineNumber: 77
                 },
                 __self: this
             }) : movies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_movieCardDefault.default, {
@@ -22967,12 +23003,16 @@ class MainView extends _reactDefault.default.Component {
                     },
                     __source: {
                         fileName: "src/components/main-view/MainView.jsx",
-                        lineNumber: 48
+                        lineNumber: 79
                     },
                     __self: this
                 }, movie._id)
             )
         }));
+    //   const { movies, selectedMovie } = this.state;
+    //   if (movies.length === 0) {
+    // return (<div className="main-view"></div>); 
+    //   }
     }
 }
 exports.default = MainView;
@@ -25492,7 +25532,17 @@ function LoginView(props) {
                     lineNumber: 26
                 },
                 __self: this,
-                children: "Submit"
+                children: "Log in"
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsx("button", {
+                type: "button",
+                onClick: props.setRegister,
+                __source: {
+                    fileName: "src/components/login-view/LoginView.jsx",
+                    lineNumber: 27
+                },
+                __self: this,
+                children: "Register"
             })
         ]
     }));
@@ -25534,10 +25584,10 @@ var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _s = $RefreshSig$();
 function RegistrationView(props) {
     _s();
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
-    const [Birthday, setBirthday] = useState('');
+    const [username, setUsername] = _react.useState('');
+    const [password, setPassword] = _react.useState('');
+    const [email, setEmail] = _react.useState('');
+    const [Birthday, setBirthday] = _react.useState('');
     const handleSubmit = (e)=>{
         e.preventDefault();
         console.log(username, password, email, Birthday);
@@ -25642,7 +25692,17 @@ function RegistrationView(props) {
                     lineNumber: 34
                 },
                 __self: this,
-                children: "Submit"
+                children: "Register"
+            }),
+            /*#__PURE__*/ _jsxRuntime.jsx("button", {
+                type: "button",
+                onClick: props.setLogin,
+                __source: {
+                    fileName: "src/components/registration-view/RegistrationView.jsx",
+                    lineNumber: 35
+                },
+                __self: this,
+                children: "Log in"
             })
         ]
     }));
