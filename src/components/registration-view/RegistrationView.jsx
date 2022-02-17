@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import PropTypes from "prop-types";
 
 export function RegistrationView(props) {
@@ -31,7 +31,8 @@ export function RegistrationView(props) {
             Birthday:
             <input type="date" value={Birthday} onChange={e => setBirthday(e.target.value)} />
           </label>
-          <button type="submit" onClick={handleSubmit}>Submit</button>
+          <button type="submit" onClick={handleSubmit}>Register</button>
+          <button type="button" onClick={props.setLogin}>Log in</button>
         </form>
       );
     }
