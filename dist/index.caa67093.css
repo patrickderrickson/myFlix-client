@@ -1,4 +1,26 @@
 .my-flix {
   color: steelblue;
 }
+Form {
+  width: 400px;
+}
+
+img {
+  width: 270px;
+  height: 400px;
+}
+.movie-view {
+  width: 270px;
+  background-color: #71bae4;
+  font-family: "futura";
+}
+.main-view {
+  background: #558bd8;
+  width: 300px;
+  display: center;
+}
+
+body {
+  font-family: "futura";
+}
 /*# sourceMappingURL=index.caa67093.css.map */

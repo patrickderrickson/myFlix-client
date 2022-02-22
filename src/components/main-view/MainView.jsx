@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import  MovieCard  from "../movie-card/MovieCard";
 import  MovieView  from "../movie-view/MovieView";
+<<<<<<< Updated upstream
 class MainView extends React.Component {
     state = {  
         movies: [
@@ -54,6 +55,37 @@ class MainView extends React.Component {
             }
         ]
     } 
+=======
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import '../main-view/MainView.scss';
+export default class MainView extends React.Component {
+    constructor() {
+        super(); 
+    }
+  
+    state = {
+      movies: [],
+      selectedMovie: null,
+      user: null,
+      login: true,
+      token: false,
+      register: false
+    }
+
+    componentDidMount(){
+      axios.get('https://frozen-sierra-28921.herokuapp.com/movies')
+        .then(response => {
+          this.setState({
+            movies: response.data
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+>>>>>>> Stashed changes
     setSelectedMovie(newSelectedMovie) {
         this.setState({
           selectedMovie: newSelectedMovie
@@ -66,8 +98,14 @@ class MainView extends React.Component {
         }
         return (
          <div className="main-view">
+       
         {selectedMovie
-          ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+          ? 
+          <Row className="justify-content-md-center">
+            <Col md={8}>
+          <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+          </Col>
+          </Row>
           : movies.map(movie => (
             <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
           ))
