@@ -4,6 +4,11 @@ import  LoginView  from "../login-view/LoginView";
 import  Registration, { RegistrationView }  from "../registration-view/RegistrationView";
 import  MovieCard  from "../movie-card/MovieCard";
 import  MovieView  from "../movie-view/MovieView";
+
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import '../main-view/MainView.scss';
 export default class MainView extends React.Component {
     constructor() {
         super(); 
@@ -74,7 +79,12 @@ export default class MainView extends React.Component {
       else if (token && !register && !login) return (
          <div className="main-view">
         {selectedMovie
-          ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+          ? 
+          <Row className="justify-content-md-center">
+            <Col md={8}>
+          <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+          </Col>
+          </Row>
           : movies.map(movie => (
             <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
           ))
