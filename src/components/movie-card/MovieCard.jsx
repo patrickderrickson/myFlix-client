@@ -1,13 +1,9 @@
-import React, { Component } from 'react';
-<<<<<<< Updated upstream
-=======
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';;
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 import '../movie-card/MovieCard.scss';
 
->>>>>>> Stashed changes
 class MovieCard extends Component {
     state = {  } 
     render() { 
