@@ -40,12 +40,13 @@ export default class MainView extends React.Component {
           selectedMovie: newSelectedMovie
         });
       }  
-      onLoggedIn(authData) {
-        console.log(authData);
+    onLoggedIn(user) {
         this.setState({
-          user: authData.user.Username
+          user,
+          token: true,
+          register: false,
+          login: false
         });
-        
       }
       OnRegistration(user) {
         axios.post('https://frozen-sierra-28921.herokuapp.com/users')
