@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
 import  LoginView  from "../login-view/LoginView";
 import  Registration, { RegistrationView }  from "../registration-view/RegistrationView";
 import  MovieCard  from "../movie-card/MovieCard";
 import  MovieView  from "../movie-view/MovieView";
+import Navbar from 'react-bootstrap/Navbar';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -39,13 +40,12 @@ export default class MainView extends React.Component {
           selectedMovie: newSelectedMovie
         });
       }  
-    onLoggedIn(user) {
+      onLoggedIn(authData) {
+        console.log(authData);
         this.setState({
-          user,
-          token: true,
-          register: false,
-          login: false
+          user: authData.user.Username
         });
+        
       }
       OnRegistration(user) {
         axios.post('https://frozen-sierra-28921.herokuapp.com/users')
@@ -69,9 +69,10 @@ export default class MainView extends React.Component {
         })
       }
     render() { 
+      
       const {movies, selectedMovie, register, user, login, token} = this.state;
       if(register && !login && !token) {
-        return (<RegistrationView setLogin={()=>this.setLogin()} OnRegistration={this.OnRegistration} />);
+        return (<div><Navbar></Navbar><RegistrationView setLogin={()=>this.setLogin()} OnRegistration={this.OnRegistration} /></div>);
       }
       else if (!register && !token && login ){
         return (<LoginView  onLoggedIn={(user)=>this.onLoggedIn(user)} setRegister={()=>this.setRegister()}/>)
