@@ -5,6 +5,7 @@ import  Registration, { RegistrationView }  from "../registration-view/Registrat
 import  MovieCard  from "../movie-card/MovieCard";
 import  MovieView  from "../movie-view/MovieView";
 import Navbar from 'react-bootstrap/Navbar';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -49,7 +50,8 @@ export default class MainView extends React.Component {
         });
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
-        this.getMovies(authData.token);
+        //this.getMovies(authData.token);
+        window.location.replace("/browse")
       }
       OnRegistration(user) {
         axios.post('https://frozen-sierra-28921.herokuapp.com/users')
@@ -75,7 +77,26 @@ export default class MainView extends React.Component {
     render() { 
       
       const {movies, selectedMovie, register, user, login, token} = this.state;
-      if(register && !login && !token) {
+      return <Router>
+        <Routes>
+        <Route exact element={<LoginView  onLoggedIn={(user)=>this.onLoggedIn(user)} setRegister={()=>this.setRegister()}/>} path="/" />
+        <Route exact element={<div><Navbar></Navbar><RegistrationView setLogin={()=>this.setLogin()} OnRegistration={this.OnRegistration} /></div>} path="/register" />
+        <Route exact element={<div className="main-view">
+        {selectedMovie
+          ? 
+          <Row className="justify-content-md-center">
+            <Col md={8}>
+          <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+          </Col>
+          </Row>
+          : movies.map(movie => (
+            <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
+          ))
+        } 
+      </div>} path="/browse" />
+        </Routes>
+      </Router>
+      /* if(register && !login && !token) {
         return (<div><Navbar></Navbar><RegistrationView setLogin={()=>this.setLogin()} OnRegistration={this.OnRegistration} /></div>);
       }
       else if (!register && !token && login ){
@@ -93,8 +114,8 @@ export default class MainView extends React.Component {
           : movies.map(movie => (
             <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
           ))
-        }
-      </div>); 
+        } 
+      </div>); */
       //   const { movies, selectedMovie } = this.state;
       //   if (movies.length === 0) {
       // return (<div className="main-view"></div>); 

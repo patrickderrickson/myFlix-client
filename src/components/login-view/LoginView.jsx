@@ -39,7 +39,7 @@ export default function LoginView(props) {
     <Button variant="primary" type="submit" onClick={handleSubmit}>
       Submit
     </Button>
-    <Button onClick={props.setRegister}>Register</Button>
+    <Button onClick={()=>window.location.replace("/register")}>Register</Button>
   </Form>
   );
 }
