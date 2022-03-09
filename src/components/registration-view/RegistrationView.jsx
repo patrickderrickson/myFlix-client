@@ -2,6 +2,7 @@ import React, { Component, useState } from 'react';
 import PropTypes from "prop-types";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 import './RegistrationView.scss';
 
@@ -14,8 +15,20 @@ export function RegistrationView(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(username, password, email, Birthday);
+        axios.post('https://frozen-sierra-28921.herokuapp.com/users', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: Birthday
+    })
+    .then(response => {
+      const data = response.data;
+      props.OnRegistration(true, username);
+    })
+    .catch(e => {
+    });
         /* Send a request to the server for authentication */
-        props.onRegistration(true, username);
+        
     };
     return (
       <Form>
