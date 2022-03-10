@@ -4,6 +4,8 @@ import  LoginView  from "../login-view/LoginView";
 import  Registration, { RegistrationView }  from "../registration-view/RegistrationView";
 import  MovieCard  from "../movie-card/MovieCard";
 import  MovieView  from "../movie-view/MovieView";
+import DirectorView from "../director-view/DirectorView";
+import GenreView from "../genre-view/GenreView";
 import Navbar from 'react-bootstrap/Navbar';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -81,6 +83,18 @@ export default class MainView extends React.Component {
         <Routes>
         <Route exact element={<LoginView  onLoggedIn={(user)=>this.onLoggedIn(user)} setRegister={()=>this.setRegister()}/>} path="/" />
         <Route exact element={<div><Navbar></Navbar><RegistrationView setLogin={()=>this.setLogin()} OnRegistration={this.OnRegistration} /></div>} path="/register" />
+        <Route path="/directors/:name" render={({ match, history }) => {
+  if (movies.length === 0) return <div className="main-view" />;
+  return <Col md={8}>
+    <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
+  </Col>
+}
+}/>
+<Route path="/movies/:movieId" render={({ match, history }) => {
+  return <Col md={8}>
+    <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
+  </Col>
+}} />
         <Route exact element={<div className="main-view">
         {selectedMovie
           ? 
@@ -96,30 +110,7 @@ export default class MainView extends React.Component {
       </div>} path="/browse" />
         </Routes>
       </Router>
-      /* if(register && !login && !token) {
-        return (<div><Navbar></Navbar><RegistrationView setLogin={()=>this.setLogin()} OnRegistration={this.OnRegistration} /></div>);
-      }
-      else if (!register && !token && login ){
-        return (<LoginView  onLoggedIn={(user)=>this.onLoggedIn(user)} setRegister={()=>this.setRegister()}/>)
-      }
-      else if (token && !register && !login) return (
-         <div className="main-view">
-        {selectedMovie
-          ? 
-          <Row className="justify-content-md-center">
-            <Col md={8}>
-          <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-          </Col>
-          </Row>
-          : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
-          ))
-        } 
-      </div>); */
-      //   const { movies, selectedMovie } = this.state;
-      //   if (movies.length === 0) {
-      // return (<div className="main-view"></div>); 
-      //   }
+
       
     }
 }
