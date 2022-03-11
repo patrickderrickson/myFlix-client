@@ -7,6 +7,7 @@ import  MovieView  from "../movie-view/MovieView";
 import DirectorView from "../director-view/DirectorView";
 import NavbarView from "../navbar-view/NavbarView";
 import GenreView from "../genre-view/GenreView";
+import UserView from "../user-view/UserView";
 import Navbar from 'react-bootstrap/Navbar';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -25,7 +26,8 @@ export default class MainView extends React.Component {
       user: null,
       login: true,
       token: false,
-      register: false
+      register: false,
+      userObj : {}
     }
 
     componentDidMount(){
@@ -58,10 +60,12 @@ export default class MainView extends React.Component {
           user: authData.user.Username,
           token: true,
           register: false,
-          login: false
+          login: false,
+          userObj: authData.user
         });
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
+        localStorage.setItem('userObj', JSON.stringify(authData.user));
         //this.getMovies(authData.token);
         window.location.replace("/browse")
       }
@@ -111,11 +115,12 @@ export default class MainView extends React.Component {
       
       const {movies, selectedMovie, register, user, login, token} = this.state;
       return <Router>
-        <NavbarView user= {user}/>
+        <NavbarView user= {this.state.user}/>
         <Routes>
           
         <Route exact element={<LoginView  onLoggedIn={(user)=>this.onLoggedIn(user)} setRegister={()=>this.setRegister()}/>} path="/" />
         <Route exact element={<div><RegistrationView setLogin={()=>this.setLogin()} OnRegistration={this.OnRegistration} /></div>} path="/register" />
+        <Route exact element={<UserView  user={this.state.userObj}/>} path="/profile" />
         <Route path="/directors/:name" render={({ match, history }) => {
   if (movies.length === 0) return <div className="main-view" />;
   return <Col md={8}>

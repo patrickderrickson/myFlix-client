@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 
 import './NavbarView.scss';
 
-export default function NavbarView({user}) {
-    const onLoggedOut = () => {
+export default function NavbarView(props) {
+    console.log(props)
+    const onLoggedout = () => {
         localStorage.clear();
         window.open('/', '_self');
     };
@@ -24,12 +25,12 @@ export default function NavbarView({user}) {
     return (
         <Navbar className="main-nav" sticky="top" expand="lg" variant="dark">
             <Container fluid>
-                <Navbar.Brand className="navbar-logo" href="/">Orishflix</Navbar.Brand>
+                <Navbar.Brand className="navbar-logo" style={{color: 'black'}} href="/">MovieFlix</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ml-auto">
                         {isAuth() && (
-                            <Nav.Link href="/profile">{user}</Nav.Link>
+                            <Nav.Link style={{color: 'blue'}} href="/profile">{localStorage.getItem('user')}</Nav.Link>
                         )}
                         {isAuth() && (
                             <Button variant="link" onClick={() => {

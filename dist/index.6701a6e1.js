@@ -22919,6 +22919,8 @@ var _navbarView = require("../navbar-view/NavbarView");
 var _navbarViewDefault = parcelHelpers.interopDefault(_navbarView);
 var _genreView = require("../genre-view/GenreView");
 var _genreViewDefault = parcelHelpers.interopDefault(_genreView);
+var _userView = require("../user-view/UserView");
+var _userViewDefault = parcelHelpers.interopDefault(_userView);
 var _navbar = require("react-bootstrap/Navbar");
 var _navbarDefault = parcelHelpers.interopDefault(_navbar);
 var _reactRouterDom = require("react-router-dom");
@@ -22937,7 +22939,9 @@ class MainView extends _reactDefault.default.Component {
         user: null,
         login: true,
         token: false,
-        register: false
+        register: false,
+        userObj: {
+        }
     };
     componentDidMount() {
         _axiosDefault.default.get('https://frozen-sierra-28921.herokuapp.com/movies').then((response)=>{
@@ -22967,10 +22971,12 @@ class MainView extends _reactDefault.default.Component {
             user: authData.user.Username,
             token: true,
             register: false,
-            login: false
+            login: false,
+            userObj: authData.user
         });
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
+        localStorage.setItem('userObj', JSON.stringify(authData.user));
         //this.getMovies(authData.token);
         window.location.replace("/browse");
     }
@@ -23019,22 +23025,22 @@ class MainView extends _reactDefault.default.Component {
         return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.BrowserRouter, {
             __source: {
                 fileName: "src/components/main-view/MainView.jsx",
-                lineNumber: 113
+                lineNumber: 117
             },
             __self: this,
             children: [
                 /*#__PURE__*/ _jsxRuntime.jsx(_navbarViewDefault.default, {
-                    user: user,
+                    user: this.state.user,
                     __source: {
                         fileName: "src/components/main-view/MainView.jsx",
-                        lineNumber: 114
+                        lineNumber: 118
                     },
                     __self: this
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsxs(_reactRouterDom.Routes, {
                     __source: {
                         fileName: "src/components/main-view/MainView.jsx",
-                        lineNumber: 115
+                        lineNumber: 119
                     },
                     __self: this,
                     children: [
@@ -23048,7 +23054,7 @@ class MainView extends _reactDefault.default.Component {
                             path: "/",
                             __source: {
                                 fileName: "src/components/main-view/MainView.jsx",
-                                lineNumber: 117
+                                lineNumber: 121
                             },
                             __self: this
                         }),
@@ -23064,7 +23070,19 @@ class MainView extends _reactDefault.default.Component {
                             path: "/register",
                             __source: {
                                 fileName: "src/components/main-view/MainView.jsx",
-                                lineNumber: 118
+                                lineNumber: 122
+                            },
+                            __self: this
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Route, {
+                            exact: true,
+                            element: /*#__PURE__*/ _jsxRuntime.jsx(_userViewDefault.default, {
+                                user: this.state.userObj
+                            }),
+                            path: "/profile",
+                            __source: {
+                                fileName: "src/components/main-view/MainView.jsx",
+                                lineNumber: 123
                             },
                             __self: this
                         }),
@@ -23085,7 +23103,7 @@ class MainView extends _reactDefault.default.Component {
                             },
                             __source: {
                                 fileName: "src/components/main-view/MainView.jsx",
-                                lineNumber: 119
+                                lineNumber: 124
                             },
                             __self: this
                         }),
@@ -23106,7 +23124,7 @@ class MainView extends _reactDefault.default.Component {
                             },
                             __source: {
                                 fileName: "src/components/main-view/MainView.jsx",
-                                lineNumber: 126
+                                lineNumber: 131
                             },
                             __self: this
                         }),
@@ -23124,7 +23142,7 @@ class MainView extends _reactDefault.default.Component {
                             },
                             __source: {
                                 fileName: "src/components/main-view/MainView.jsx",
-                                lineNumber: 133
+                                lineNumber: 138
                             },
                             __self: this
                         }),
@@ -23154,7 +23172,7 @@ class MainView extends _reactDefault.default.Component {
                             path: "/browse",
                             __source: {
                                 fileName: "src/components/main-view/MainView.jsx",
-                                lineNumber: 138
+                                lineNumber: 143
                             },
                             __self: this
                         })
@@ -23171,7 +23189,7 @@ exports.default = MainView;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","axios":"iYoWk","../login-view/LoginView":"3yOmG","../registration-view/RegistrationView":"lEgiA","../movie-card/MovieCard":"8jEVi","../movie-view/MovieView":"aKYaE","react-bootstrap/Navbar":"eYZQl","react-bootstrap/Row":"c0x1x","react-bootstrap/Col":"fbam0","../main-view/MainView.scss":"4qr08","@parcel/transformer-js/src/esmodule-helpers.js":"bmoPs","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7YVT3","react-router-dom":"kjA5T","../director-view/DirectorView":"fBgi4","../genre-view/GenreView":"3JvDh","../navbar-view/NavbarView":"i4ZGt"}],"iYoWk":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","axios":"iYoWk","../login-view/LoginView":"3yOmG","../registration-view/RegistrationView":"lEgiA","../movie-card/MovieCard":"8jEVi","../movie-view/MovieView":"aKYaE","react-bootstrap/Navbar":"eYZQl","react-bootstrap/Row":"c0x1x","react-bootstrap/Col":"fbam0","../main-view/MainView.scss":"4qr08","@parcel/transformer-js/src/esmodule-helpers.js":"bmoPs","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7YVT3","react-router-dom":"kjA5T","../director-view/DirectorView":"fBgi4","../genre-view/GenreView":"3JvDh","../navbar-view/NavbarView":"i4ZGt","../user-view/UserView":"1uDLN"}],"iYoWk":[function(require,module,exports) {
 module.exports = require('./lib/axios');
 
 },{"./lib/axios":"3QmO2"}],"3QmO2":[function(require,module,exports) {
@@ -31818,8 +31836,9 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _navbarViewScss = require("./NavbarView.scss");
-function NavbarView({ user  }) {
-    const onLoggedOut = ()=>{
+function NavbarView(props) {
+    console.log(props);
+    const onLoggedout = ()=>{
         localStorage.clear();
         window.open('/', '_self');
     };
@@ -31835,32 +31854,35 @@ function NavbarView({ user  }) {
         variant: "dark",
         __source: {
             fileName: "src/components/navbar-view/NavbarView.jsx",
-            lineNumber: 25
+            lineNumber: 26
         },
         __self: this,
         children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Container, {
             fluid: true,
             __source: {
                 fileName: "src/components/navbar-view/NavbarView.jsx",
-                lineNumber: 26
+                lineNumber: 27
             },
             __self: this,
             children: [
                 /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Navbar.Brand, {
                     className: "navbar-logo",
+                    style: {
+                        color: 'black'
+                    },
                     href: "/",
                     __source: {
                         fileName: "src/components/navbar-view/NavbarView.jsx",
-                        lineNumber: 27
+                        lineNumber: 28
                     },
                     __self: this,
-                    children: "Orishflix"
+                    children: "MovieFlix"
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Navbar.Toggle, {
                     "aria-controls": "responsive-navbar-nav",
                     __source: {
                         fileName: "src/components/navbar-view/NavbarView.jsx",
-                        lineNumber: 28
+                        lineNumber: 29
                     },
                     __self: this
                 }),
@@ -31868,25 +31890,28 @@ function NavbarView({ user  }) {
                     id: "responsive-navbar-nav",
                     __source: {
                         fileName: "src/components/navbar-view/NavbarView.jsx",
-                        lineNumber: 29
+                        lineNumber: 30
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Nav, {
                         className: "ml-auto",
                         __source: {
                             fileName: "src/components/navbar-view/NavbarView.jsx",
-                            lineNumber: 30
+                            lineNumber: 31
                         },
                         __self: this,
                         children: [
                             isAuth() && /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Nav.Link, {
+                                style: {
+                                    color: 'blue'
+                                },
                                 href: "/profile",
                                 __source: {
                                     fileName: "src/components/navbar-view/NavbarView.jsx",
-                                    lineNumber: 32
+                                    lineNumber: 33
                                 },
                                 __self: this,
-                                children: user
+                                children: localStorage.getItem('user')
                             }),
                             isAuth() && /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
                                 variant: "link",
@@ -31895,7 +31920,7 @@ function NavbarView({ user  }) {
                                 },
                                 __source: {
                                     fileName: "src/components/navbar-view/NavbarView.jsx",
-                                    lineNumber: 35
+                                    lineNumber: 36
                                 },
                                 __self: this,
                                 children: "Logout"
@@ -31904,7 +31929,7 @@ function NavbarView({ user  }) {
                                 href: "/",
                                 __source: {
                                     fileName: "src/components/navbar-view/NavbarView.jsx",
-                                    lineNumber: 40
+                                    lineNumber: 41
                                 },
                                 __self: this,
                                 children: "Login"
@@ -31913,7 +31938,7 @@ function NavbarView({ user  }) {
                                 href: "/register",
                                 __source: {
                                     fileName: "src/components/navbar-view/NavbarView.jsx",
-                                    lineNumber: 43
+                                    lineNumber: 44
                                 },
                                 __self: this,
                                 children: "Register"
@@ -39885,6 +39910,195 @@ Tooltip.defaultProps = defaultProps;
 Tooltip.displayName = 'Tooltip';
 exports.default = Tooltip;
 
-},{"classnames":"bOXOh","react":"6TuXu","./ThemeProvider":"eeqfi","./helpers":"S1Bw1","react/jsx-runtime":"8xIwr","@parcel/transformer-js/src/esmodule-helpers.js":"bmoPs"}],"dQafu":[function() {},{}]},["3elwu","hcR1t","dLPEP"], "dLPEP", "parcelRequireaec4")
+},{"classnames":"bOXOh","react":"6TuXu","./ThemeProvider":"eeqfi","./helpers":"S1Bw1","react/jsx-runtime":"8xIwr","@parcel/transformer-js/src/esmodule-helpers.js":"bmoPs"}],"dQafu":[function() {},{}],"1uDLN":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$2eef = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$2eef.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxRuntime = require("react/jsx-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _form = require("react-bootstrap/Form");
+var _formDefault = parcelHelpers.interopDefault(_form);
+var _button = require("react-bootstrap/Button");
+var _buttonDefault = parcelHelpers.interopDefault(_button);
+var _userViewScss = require("../user-view/UserView.scss");
+class UserView extends _react.Component {
+    state = {
+        Username: '',
+        Password: '',
+        Email: '',
+        Birthday: ''
+    };
+    handleChange = (e)=>{
+        this.state({
+            [e.currentTarget.name]: e.currentTarget.value
+        });
+    };
+    handleSubmit = (e)=>{
+        e.preventDefault();
+        console.log(username, password, email, Birthday);
+        _axiosDefault.default.put('https://frozen-sierra-28921.herokuapp.com/users/' + localStorage.getItem('user'), {
+            Username: username,
+            Password: password,
+            Email: email,
+            Birthday: Birthday
+        }).then((response)=>{
+            alert("Changes made");
+        }).catch((e1)=>{
+        });
+    /* Send a request to the server for authentication */ };
+    render() {
+        console.log(JSON.parse(localStorage.getItem('userObj')));
+        const user = JSON.parse(localStorage.getItem('userObj'));
+        return(/*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default, {
+            __source: {
+                fileName: "src/components/user-view/UserView.jsx",
+                lineNumber: 41
+            },
+            __self: this,
+            children: [
+                /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
+                    controlId: "formUsername",
+                    __source: {
+                        fileName: "src/components/user-view/UserView.jsx",
+                        lineNumber: 42
+                    },
+                    __self: this,
+                    children: [
+                        /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
+                            __source: {
+                                fileName: "src/components/user-view/UserView.jsx",
+                                lineNumber: 43
+                            },
+                            __self: this,
+                            children: "Username:"
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
+                            type: "text",
+                            name: "Username",
+                            value: user.Username,
+                            __source: {
+                                fileName: "src/components/user-view/UserView.jsx",
+                                lineNumber: 44
+                            },
+                            __self: this
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
+                    controlId: "formPassword",
+                    __source: {
+                        fileName: "src/components/user-view/UserView.jsx",
+                        lineNumber: 47
+                    },
+                    __self: this,
+                    children: [
+                        /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
+                            __source: {
+                                fileName: "src/components/user-view/UserView.jsx",
+                                lineNumber: 48
+                            },
+                            __self: this,
+                            children: "Password:"
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
+                            type: "password",
+                            name: "Password",
+                            value: user.Password,
+                            __source: {
+                                fileName: "src/components/user-view/UserView.jsx",
+                                lineNumber: 49
+                            },
+                            __self: this
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
+                    controlId: "formPassword",
+                    __source: {
+                        fileName: "src/components/user-view/UserView.jsx",
+                        lineNumber: 51
+                    },
+                    __self: this,
+                    children: [
+                        /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
+                            __source: {
+                                fileName: "src/components/user-view/UserView.jsx",
+                                lineNumber: 52
+                            },
+                            __self: this,
+                            children: "Email:"
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
+                            type: "email",
+                            name: "Email",
+                            value: user.Email,
+                            __source: {
+                                fileName: "src/components/user-view/UserView.jsx",
+                                lineNumber: 53
+                            },
+                            __self: this
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsxs(_formDefault.default.Group, {
+                    controlId: "formBirthday",
+                    __source: {
+                        fileName: "src/components/user-view/UserView.jsx",
+                        lineNumber: 55
+                    },
+                    __self: this,
+                    children: [
+                        /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Label, {
+                            __source: {
+                                fileName: "src/components/user-view/UserView.jsx",
+                                lineNumber: 56
+                            },
+                            __self: this,
+                            children: "Birthday:"
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx(_formDefault.default.Control, {
+                            type: "date",
+                            name: "Birthday",
+                            value: user.Birthday,
+                            __source: {
+                                fileName: "src/components/user-view/UserView.jsx",
+                                lineNumber: 57
+                            },
+                            __self: this
+                        })
+                    ]
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                    variant: "primary",
+                    type: "submit",
+                    __source: {
+                        fileName: "src/components/user-view/UserView.jsx",
+                        lineNumber: 59
+                    },
+                    __self: this,
+                    children: "Edit"
+                })
+            ]
+        }));
+    }
+}
+exports.default = UserView;
+
+  $parcel$ReactRefreshHelpers$2eef.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","axios":"iYoWk","prop-types":"1tgq3","../user-view/UserView.scss":"atQI1","@parcel/transformer-js/src/esmodule-helpers.js":"bmoPs","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7YVT3","react-bootstrap/Form":"5ykgY","react-bootstrap/Button":"9CzHT"}],"atQI1":[function() {},{}]},["3elwu","hcR1t","dLPEP"], "dLPEP", "parcelRequireaec4")
 
 //# sourceMappingURL=index.6701a6e1.js.map
