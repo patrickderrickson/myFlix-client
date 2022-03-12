@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import { Container } from 'react-bootstrap';
 
 import '../user-view/UserView.scss';
 
@@ -13,6 +15,25 @@ class UserView extends Component {
         Email: '',
         Birthday: ''
      } 
+     onDeleteUser() {
+        const Username = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+
+        axios
+            .delete(`https://frozen-sierra-28921.herokuapp.com/users/${Username}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((response) => {
+                console.log(response);
+                alert("Profile deleted");
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.open('/', '_self');
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
      handleChange = (e) => {
          this.state(
              {[e.currentTarget.name]: e.currentTarget.value} )}
@@ -34,11 +55,15 @@ class UserView extends Component {
         /* Send a request to the server for authentication */
         
     };
+    
     render() { 
         console.log(JSON.parse(localStorage.getItem('userObj')))
         const user=JSON.parse(localStorage.getItem('userObj'))
         return (
+            <Container>
+           
             <Form>
+                <h3>Edit Information</h3>
             <Form.Group controlId="formUsername">
               <Form.Label>Username:</Form.Label>
               <Form.Control type="text" name="Username" value={user.Username}  />
@@ -60,6 +85,11 @@ class UserView extends Component {
               Edit
             </Button>
           </Form>
+          <Row>
+                <h3>Delete Account</h3>
+                <Button className="ml-3" variant="secondary" onClick={() => this.onDeleteUser()}>Delete User</Button>
+            </Row>
+          </Container>
             );
           }
         }

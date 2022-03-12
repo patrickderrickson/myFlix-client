@@ -25,16 +25,16 @@ export default function NavbarView(props) {
     return (
         <Navbar className="main-nav" sticky="top" expand="lg" variant="dark">
             <Container fluid>
-                <Navbar.Brand className="navbar-logo" style={{color: 'black'}} href="/">MovieFlix</Navbar.Brand>
+                <Navbar.Brand className="navbar-logo" style={{color: 'black'}} href="/">MyFlix</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ml-auto">
                         {isAuth() && (
-                            <Nav.Link style={{color: 'blue'}} href="/profile">{localStorage.getItem('user')}</Nav.Link>
+                            <Nav.Link style={{color: 'black'}} href="/profile">{localStorage.getItem('user')}'s Settings</Nav.Link>
                         )}
                         {isAuth() && (
-                            <Button variant="link" onClick={() => {
-                                onLoggedOut()
+                            <Button variant="link" style={{color: 'black'}} onClick={() => {
+                                this.onLoggedOut()
                             }}>Logout</Button>
                         )}
                         {!isAuth() && (

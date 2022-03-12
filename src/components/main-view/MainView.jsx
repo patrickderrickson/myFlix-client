@@ -121,14 +121,14 @@ export default class MainView extends React.Component {
         <Route exact element={<LoginView  onLoggedIn={(user)=>this.onLoggedIn(user)} setRegister={()=>this.setRegister()}/>} path="/" />
         <Route exact element={<div><RegistrationView setLogin={()=>this.setLogin()} OnRegistration={this.OnRegistration} /></div>} path="/register" />
         <Route exact element={<UserView  user={this.state.userObj}/>} path="/profile" />
-        <Route path="/directors/:name" render={({ match, history }) => {
+        <Route path="/directors/${movie.Director.Name}" render={({ match, history }) => {
   if (movies.length === 0) return <div className="main-view" />;
   return <Col md={8}>
     <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
   </Col>
 }
 }/>
-<Route path="/genre/:name" render={({ match, history }) => {
+<Route path="/genres/${movie.Genre.Name}" render={({ match, history }) => {
   if (movies.length === 0) return <div className="main-view" />;
   return <Col md={8}>
     <GenreView genrer={movies.find(m => m.Genre.Name === match.params.name).Genre} onBackClick={() => history.goBack()} />
