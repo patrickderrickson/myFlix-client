@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+
 import  LoginView  from "../login-view/LoginView";
 import  Registration, { RegistrationView }  from "../registration-view/RegistrationView";
 import  MovieCard  from "../movie-card/MovieCard";
@@ -9,7 +10,7 @@ import NavbarView from "../navbar-view/NavbarView";
 import GenreView from "../genre-view/GenreView";
 import UserView from "../user-view/UserView";
 import Navbar from 'react-bootstrap/Navbar';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -128,10 +129,10 @@ export default class MainView extends React.Component {
   </Col>
 }
 }/>
-<Route path="/genres/${movie.Genre.Name}" render={({ match, history }) => {
+<Route path="/genres/:genreName" render={() => {
   if (movies.length === 0) return <div className="main-view" />;
   return <Col md={8}>
-    <GenreView genrer={movies.find(m => m.Genre.Name === match.params.name).Genre} onBackClick={() => history.goBack()} />
+    <GenreView  />
   </Col>
 }
 }/>
