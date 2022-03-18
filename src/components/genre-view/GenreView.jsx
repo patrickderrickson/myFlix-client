@@ -11,17 +11,17 @@ class GenreView extends Component {
      Name = 
       location.href.split("genres/")
       [1]
-      constructor (){
-        console.log(this.props)
-        console.log("Hello World")
-      }
     componentDidMount(){
       console.log(this.Name)
-      axios.get('https://frozen-sierra-28921.herokuapp.com/movies/genre/' + "Action")
+      axios.get('https://frozen-sierra-28921.herokuapp.com/movies/genre/' + this.Name, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      })
         .then(response => {
           console.log(response)
           this.setState({
-            genre: response.data
+            genre: response.data[0].Genre
           });
         })
         .catch(error => {
@@ -33,7 +33,7 @@ class GenreView extends Component {
           <Card>
             <Card.Body>
               <Card.Title>{this.state.genre.Name}</Card.Title>
-              <Card.Text></Card.Text>
+              <Card.Text>{this.state.genre.Description}</Card.Text>
             </Card.Body>
           </Card>
         );

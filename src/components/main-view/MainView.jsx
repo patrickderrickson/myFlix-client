@@ -14,7 +14,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { connect } from 'react-redux';
 
 import { setMovies } from '../../actions/actions';
-import MoviesList from '../movies-list/movies-list';
+
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -125,18 +125,12 @@ class MainView extends React.Component {
           
         <Route exact element={<LoginView  onLoggedIn={(user)=>this.onLoggedIn(user)} setRegister={()=>this.setRegister()}/>} path="/" />
         <Route exact element={<div><RegistrationView setLogin={()=>this.setLogin()} OnRegistration={this.OnRegistration} /></div>} path="/register" />
+        <Route exact element={<div><GenreView /></div>} path="/genres/:GenreName" />
         <Route exact element={<UserView  user={this.state.userObj}/>} path="/profile" />
         <Route path="/directors/${movie.Director.Name}" render={({ match, history }) => {
   if (movies.length === 0) return <div className="main-view" />;
   return <Col md={8}>
     <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
-  </Col>
-}
-}/>
-<Route path="/genres/:genreName" render={() => {
-  if (movies.length === 0) return <div className="main-view" />;
-  return <Col md={8}>
-    <GenreView  />
   </Col>
 }
 }/>

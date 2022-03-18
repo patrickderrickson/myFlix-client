@@ -6,7 +6,7 @@ import './NavbarView.scss';
 
 export default function NavbarView(props) {
     console.log(props)
-    const onLoggedout = () => {
+    const onLoggedOut = () => {
         localStorage.clear();
         window.open('/', '_self');
     };
@@ -34,7 +34,7 @@ export default function NavbarView(props) {
                         )}
                         {isAuth() && (
                             <Button variant="link" style={{color: 'black'}} onClick={() => {
-                                this.onLoggedOut()
+                                onLoggedOut()
                             }}>Logout</Button>
                         )}
                         {!isAuth() && (
