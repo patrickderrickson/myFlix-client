@@ -10,19 +10,24 @@ import NavbarView from "../navbar-view/NavbarView";
 import GenreView from "../genre-view/GenreView";
 import UserView from "../user-view/UserView";
 import Navbar from 'react-bootstrap/Navbar';
+
+import { connect } from 'react-redux';
+
+import { setMovies } from '../../actions/actions';
+import MoviesList from '../movies-list/movies-list';
+
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import '../main-view/MainView.scss';
-export default class MainView extends React.Component {
+class MainView extends React.Component {
     constructor() {
         super(); 
     }
   
     state = {
-      movies: [],
       selectedMovie: null,
       user: null,
       login: true,
@@ -83,9 +88,7 @@ export default class MainView extends React.Component {
         })
         .then(response => {
           // Assign the result to the state
-          this.setState({
-            movies: response.data
-          });
+          this.props.setMovies(response.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -113,8 +116,9 @@ export default class MainView extends React.Component {
         })
       }
     render() { 
-      
-      const {movies, selectedMovie, register, user, login, token} = this.state;
+      let { movies } = this.props;
+      let { user } = this.state;
+      const { selectedMovie, register, login, token} = this.state;
       return <Router>
         <NavbarView user= {this.state.user}/>
         <Routes>
@@ -155,9 +159,12 @@ export default class MainView extends React.Component {
         } 
       </div>} path="/browse" />
         </Routes>
-      </Router>
-
-      
+      </Router>      
     }
 }
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setMovies } )(MainView);
  
