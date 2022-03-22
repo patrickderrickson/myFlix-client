@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 
 import { setMovies } from '../../actions/actions';
 
+import MoviesList from '../movies-list/MoviesList';
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -82,6 +83,7 @@ class MainView extends React.Component {
           user: null
         });
       }
+      
       getMovies(token) {
         axios.get('https://frozen-sierra-28921.herokuapp.com/movies', {
           headers: { Authorization: `Bearer ${token}`}
@@ -127,13 +129,7 @@ class MainView extends React.Component {
         <Route exact element={<div><RegistrationView setLogin={()=>this.setLogin()} OnRegistration={this.OnRegistration} /></div>} path="/register" />
         <Route exact element={<div><GenreView /></div>} path="/genres/:GenreName" />
         <Route exact element={<UserView  user={this.state.userObj}/>} path="/profile" />
-        <Route path="/directors/${movie.Director.Name}" render={({ match, history }) => {
-  if (movies.length === 0) return <div className="main-view" />;
-  return <Col md={8}>
-    <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} onBackClick={() => history.goBack()} />
-  </Col>
-}
-}/>
+        <Route exact element={<div><DirectorView /></div>} path="/directors/:DirectorName" />
 <Route path="/movies/:movieId" render={({ match, history }) => {
   return <Col md={8}>
     <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />

@@ -1,31 +1,45 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
+import axios from 'axios';
 
 import '../director-view/DirectorView.scss';
 
+
+
 class DirectorView extends Component {
-    state = {  } 
+    state = { director: {}} 
+     Name = 
+      location.href.split("directors/")
+      [1]
+    componentDidMount(){
+      console.log(this.Name)
+      axios.get('https://frozen-sierra-28921.herokuapp.com/movies/director/' + this.Name, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      })
+        .then(response => {
+          console.log(response)
+          this.setState({
+            director: response.data[0].Director
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
     render() { 
-        const { director } = this.props;
         return (
           <Card>
             <Card.Body>
-              <Card.Title>{director.Name}</Card.Title>
-              <Card.Text>{director.Bio}</Card.Text>
-              <Card.Text>{director.Birth}</Card.Text>
+              <Card.Title>{this.state.director.Name}</Card.Title>
+              <Card.Text>{this.state.director.Bio}</Card.Text>
+              <Card.Text>Born: {this.state.director.Birth}</Card.Text>
             </Card.Body>
           </Card>
         );
     }
 }
 
-DirectorView.propTypes = {
-    director: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-      Bio: PropTypes.string.isRequired,
-      Birth: PropTypes.string.isRequired,
-    }).isRequired,
-  };
  
 export default DirectorView;
