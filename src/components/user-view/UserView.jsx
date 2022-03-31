@@ -89,6 +89,9 @@ class UserView extends Component {
                 <h3>Delete Account</h3>
                 <Button className="ml-3" variant="secondary" onClick={() => this.onDeleteUser()}>Delete User</Button>
           </Row>
+          <Row>
+          {user.FavoriteMovies}
+          </Row>
           </Container>
             );
           }

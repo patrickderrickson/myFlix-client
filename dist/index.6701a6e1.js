@@ -26687,8 +26687,23 @@ var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _card = require("react-bootstrap/Card");
 var _cardDefault = parcelHelpers.interopDefault(_card);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _movieCardScss = require("../movie-card/MovieCard.scss");
 class MovieCard extends _react.Component {
+    onFavorite(id) {
+        console.log(localStorage.getItem("token"));
+        _axiosDefault.default.post(`https://frozen-sierra-28921.herokuapp.com/users/${localStorage.getItem("user")}/movies/${id}`, {
+        }, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        }).then((response)=>{
+            const data = response.data;
+            alert("movie added");
+        }).catch((e)=>{
+        });
+    }
     state = {
     };
     render() {
@@ -26696,7 +26711,7 @@ class MovieCard extends _react.Component {
         return(/*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default, {
             __source: {
                 fileName: "src/components/movie-card/MovieCard.jsx",
-                lineNumber: 13
+                lineNumber: 27
             },
             __self: this,
             children: [
@@ -26705,21 +26720,21 @@ class MovieCard extends _react.Component {
                     src: "img/" + movie.ImagePath,
                     __source: {
                         fileName: "src/components/movie-card/MovieCard.jsx",
-                        lineNumber: 14
+                        lineNumber: 28
                     },
                     __self: this
                 }),
                 /*#__PURE__*/ _jsxRuntime.jsxs(_cardDefault.default.Body, {
                     __source: {
                         fileName: "src/components/movie-card/MovieCard.jsx",
-                        lineNumber: 15
+                        lineNumber: 29
                     },
                     __self: this,
                     children: [
                         /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Title, {
                             __source: {
                                 fileName: "src/components/movie-card/MovieCard.jsx",
-                                lineNumber: 16
+                                lineNumber: 30
                             },
                             __self: this,
                             children: movie.Title
@@ -26727,7 +26742,7 @@ class MovieCard extends _react.Component {
                         /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
                             __source: {
                                 fileName: "src/components/movie-card/MovieCard.jsx",
-                                lineNumber: 17
+                                lineNumber: 31
                             },
                             __self: this,
                             children: movie.Description
@@ -26738,10 +26753,21 @@ class MovieCard extends _react.Component {
                             variant: "link",
                             __source: {
                                 fileName: "src/components/movie-card/MovieCard.jsx",
-                                lineNumber: 18
+                                lineNumber: 32
                             },
                             __self: this,
                             children: "Open"
+                        }),
+                        /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                            onClick: ()=>this.onFavorite(movie._id)
+                            ,
+                            variant: "link",
+                            __source: {
+                                fileName: "src/components/movie-card/MovieCard.jsx",
+                                lineNumber: 33
+                            },
+                            __self: this,
+                            children: "Favorite"
                         })
                     ]
                 })
@@ -26764,7 +26790,7 @@ exports.default = MovieCard;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Button":"9CzHT","react-bootstrap/Card":"MoOk8","../movie-card/MovieCard.scss":"Ipl75","@parcel/transformer-js/src/esmodule-helpers.js":"bmoPs","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7YVT3"}],"MoOk8":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","prop-types":"1tgq3","react-bootstrap/Button":"9CzHT","react-bootstrap/Card":"MoOk8","../movie-card/MovieCard.scss":"Ipl75","@parcel/transformer-js/src/esmodule-helpers.js":"bmoPs","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7YVT3","axios":"iYoWk"}],"MoOk8":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -40269,6 +40295,14 @@ class UserView extends _react.Component {
                             children: "Delete User"
                         })
                     ]
+                }),
+                /*#__PURE__*/ _jsxRuntime.jsx(_rowDefault.default, {
+                    __source: {
+                        fileName: "src/components/user-view/UserView.jsx",
+                        lineNumber: 92
+                    },
+                    __self: this,
+                    children: user.FavoriteMovies
                 })
             ]
         }));
